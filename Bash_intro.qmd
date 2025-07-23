@@ -1,6 +1,6 @@
 ---
-title: "1. Основні команди Linux"
-author: "Nazarii Hrubiian"
+title: "Intro to Bash"
+author: "Daryna Zavadska"
 date: "`r Sys.Date()`"
 format: 
  html:
@@ -25,39 +25,69 @@ format:
 
 
 
+# Creating directory and moving into it
+# Ctrl+SHIFT+C CTRL+SHIFT+V (at least for windows and Mac)
+# Ctrl+C stops currently running command
+# Spaces matter
+# Capital/lowercase matters
+# Forward / and reverse dashes \ matter
+# Non-lating alphabets matter
+# Special symbols like * ^ $ # etc. matter
 
 
 ```bash
 
 #create your directory
-mkdir ./pur_your_name_here
-#move to your directory
+mkdir ./put_your_name_here
+#move to your directory "cd" = change directory
 cd ./put_your_name_here
 #print the absolute path
 pwd
 
+  
+```
 
-#download .cds fasta from NCBI ftp
+# Basic operations with data - Pichia pastoris aminoacid sequences example
+## We will download the thranslated CDS from pichia pastoris genome from NCBI and learn ho to do basic operations on .fasta files and in a meanwhile familiarise with the commandline a bit.
+
+
+# Downloading, unpacking, copying and removing files
+
+```bash
+
+#download .cds fasta from NCBI ftp 
   wget https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/001/708/105/GCA_001708105.1_ASM170810v1/GCA_001708105.1_ASM170810v1_translated_cds.faa.gz
-  #look what's in your directory
-   ls
-  #look what's in your directory
-   ls ./GCA*
+  #look what's in your directory ; "ls"=list
+   ls ./
+   #look what's one directory up
+   ls ../
+
   #unzip the archive
    gunzip ./GCA_001708105.1_ASM170810v1_translated_cds.faa.gz 
-   ls ./GCA*
+
    #create new directory
    mkdir ./training
-   cp ./GCA_001708105.1_ASM170810v1_translated_cds.faa.gz ./training
-   ls ./GCA*
+   cp ./GCA_001708105.1_ASM170810v1_translated_cds.faa ./training
+   ls ./
    cd ./training
    ls
    mv ./GCA_001708105.1_ASM170810v1_translated_cds.faa ./yeast.fasta
    
    # task - copy yeast.fasta and give it any other name that you like
+   ### WRITE YOUR CODE HERE
    
+   #now your copy should be in the directory
+   
+   #now remove the copy you just made
    rm your_copy_of_yeast.fasta
    
+   #check again, the copy is not there anymore
+```  
+   
+# Reading/previewing files, writing files, finding patterns in files ("regex"-grep)
+   
+   
+```bash
    head ./GCA_001708105.1_ASM170810v1_translated_cds.faa 
    tail ./GCA_001708105.1_ASM170810v1_translated_cds.faa 
    # task - show first 500 lines from the start of the file
@@ -77,17 +107,23 @@ pwd
    
    #count the number of CDS in this fasta (i.e. you need to know the number of genes)
    grep ">" ./GCA_001708105.1_ASM170810v1_translated_cds.faa
-   # task - find the genes with XXX in their name
+   # task - find the genes with ATY40_BA7500049 in their name
    
    #the | (called "pipe") redirects the output to the command downstream
    grep ">" ./GCA_001708105.1_ASM170810v1_translated_cds.faa | wc -l
-   # which number did you just get? use wc help to learn it
+   # which number did you just get? use wc --help to learn it
+   # what does the number of fasta headers tell you 
    
    #See what you wrote in small_yeast.fasta
    #count the number of CDS which were written to small_yeast.fasta
    # write all the gene names from small_yeast.fasta into the small_names.txt
-   #Time to look again what are files in your dicrectory
-   
+   #Time to look again what are files in your directory
+ 
+```
+
+# Modifying files  - "Find and replace"
+
+```bash 
    #now lets remove the parts of sequence names following after the first space. 
    grep ">" ./small_names.txt | sed "s/ .*//g"
    # task - write short names into a separate file cut_names.txt
