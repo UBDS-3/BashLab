@@ -88,8 +88,8 @@ pwd
    
    
 ```bash
-   head ./GCA_001708105.1_ASM170810v1_translated_cds.faa 
-   tail ./GCA_001708105.1_ASM170810v1_translated_cds.faa 
+   head ./yeast.fasta 
+   tail ./yeast.fasta 
    # task - show first 500 lines from the start of the file
    # hint - start with printing head command and executing it without any arguments
    
@@ -102,15 +102,15 @@ pwd
    cat ./yeast.fasta 
    #now hit Ctrl+C to stop the command which is running
    
-   less ./GCA_001708105.1_ASM170810v1_translated_cds.faa 
+   less ./yeast.fasta 
    #if Ctrl+C doesn't help - print q, quit, exit or something alike
    
    #count the number of CDS in this fasta (i.e. you need to know the number of genes)
-   grep ">" ./GCA_001708105.1_ASM170810v1_translated_cds.faa
+   grep ">" ./yeast.fasta
    # task - find the genes with ATY40_BA7500049 in their name
    
    #the | (called "pipe") redirects the output to the command downstream
-   grep ">" ./GCA_001708105.1_ASM170810v1_translated_cds.faa | wc -l
+   grep ">" ./yeast.fasta | wc -l
    # which number did you just get? use wc --help to learn it
    # what does the number of fasta headers tell you 
    
@@ -142,10 +142,17 @@ pwd
   #bonus
   for i in echo("gene=USA1" "gene=SEN54" "gene=SEN54") ; do grep "$i" ./yeast.fasta ; done
 
+ 
+```
 
-  #BIG TASK - find sequences with ANZ74807 ANZ73996 ANZ73710 and ANZ73481 in their names, write it into a separate file to_align.fasta
-  #step 1 - find the full names of these sequences in ./yeast.fasta ; use loop for your convenience
-  
+
+# BIG TASK - find sequences with ANZ74807 ANZ73996 ANZ73710 and ANZ73481 in their names, write it into a separate file to_align.fasta
+
+
+
+```bash 
+
+  # step 1 - find the full names of these sequences in ./yeast.fasta ; use loop for your convenience
   
   #let's manually create the list of IDs that we need in the new file, using nano
   nano
