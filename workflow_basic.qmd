@@ -24,17 +24,19 @@ format:
 
 
 
+# !!!IMPORTANT!!!
+
+## USING THE FOLLOWING CAN OFTEN CAUSE PROBLEMS
+## Ctrl+SHIFT+C CTRL+SHIFT+V (at least for windows and Mac)
+## Ctrl+C stops currently running command
+## Spaces 
+## Capital/lowercase 
+## Forward / and reverse dashes \ 
+## Non-lating alphabets 
+## Special symbols like * ^ $ # etc. 
+
 
 # Creating directory and moving into it
-# Ctrl+SHIFT+C CTRL+SHIFT+V (at least for windows and Mac)
-# Ctrl+C stops currently running command
-# Spaces matter
-# Capital/lowercase matters
-# Forward / and reverse dashes \ matter
-# Non-lating alphabets matter
-# Special symbols like * ^ $ # etc. matter
-
-
 ```bash
 
 #create your directory
@@ -153,6 +155,8 @@ pwd
 
   # step 1 - find the full names of these sequences in ./yeast.fasta ; use loop for your convenience
   
+  #!!!! COPY THE IDs NOW
+  
   #let's manually create the list of IDs that we need in the new file, using nano
   nano
   # copy the output of step 1 into nano, put each from the new line in the file, like this:
@@ -200,30 +204,30 @@ pwd
   # Use command unzip for this
   
   
-  # see how many files we have in unxipped ./many_data directory
-  ls | wc -l
+  # see how many files we have in unxipped ./many_files directory
+  ls ./many_files | wc -l
   
   #see how many files with "kDNA" string in the name
   ls ./*kDNA* | wc -l
   
   #What happens if you run the 
-  ls ./*kDNA* | wc -l
+  ls ./*kdna* | wc -l
   #instead?
   
-  # concatenate all files with  "kDNA" string in the name into a single giant file
-  cat ./*kDNA* > all_kDNA.csv
+  # merge all files with  "kDNA" string in the name into a single giant file
+  cat ./*kDNA* > all_DNA.csv
   #count the number of lines in this file
   
   # Now, try to add files with "KINETO"  string in the name into a same giant file
-  cat ./*KIN* > all_kDNA.csv
+  cat ./*KIN* > all_DNA.csv
   #count the number of lines in this file
   
   #What's wrong here? 
   
   # The ">" synbol overwrites the file every time. To add the output to the end of the existing file without overwriting it, use ">>" symbol
   #let's try again.
-  cat ./*kDNA* > all_kDNA.csv
-  cat ./*KIN* >> all_kDNA.csv
+  cat ./*kDNA* > all_DNA.csv
+  cat ./*KIN* >> all_DNA.csv
   
   #Now, count the number of lines
   #Did it change?
