@@ -155,19 +155,21 @@ pwd
   
   #let's manually create the list of IDs that we need in the new file, using nano
   nano
-  # copy  ANZ74807 ANZ73996 ANZ73710 and ANZ73481, put each from the new line in the file, like this:
-  
+  # copy the output of step 1 into nano, put each from the new line in the file, like this:
   
   
   # press Ctrl+O to write out the file, give it some name
   # press Ctrl+X to quit
   # run cat to see the file's content
+ 
+  # remove ">" symbol using sed, or manually
+
+
 
   #now we want to extract fasta sequences with specific headers from the file. 
   #for this, we will use seqkit
-  seqkit grep -f your_id.txt yeast.fasta
+  seqkit grep -n -f your_id.txt yeast.fasta > your_FINAL_cds.fasta
   
-  #write output into a file ./your_FINAL_cds.fasta
   #check the content of this file
   
 ```
@@ -188,13 +190,14 @@ pwd
 
 # Managing multiple files
 
-## Sometimes, you need to deal with data recorded in multiple output files with similar prefic in the names - for example, you are making measurements of cells from many microscophotographs  
+## Sometimes, you need to deal with data recorded in multiple output files with similar prefix in the names - for example, you are making measurements of cells from many microscophotographs and for each microphograph, separate table with measurments is generated.
 
 ```bash   
     #clone git repository with all the files 
   git clone https://github.com/UBDS-3/BashLab.git
   
   #Task - move to the directory data in BashLab and unzip the archive
+  # Use command unzip for this
   
   
   # see how many files we have in unxipped ./many_data directory
@@ -225,10 +228,11 @@ pwd
   #Now, count the number of lines
   #Did it change?
   
+```  
   
-  
-  # Let's say you want to rename all these files - for example replace "Cflexa" part with "Sros"
+# Let's say you want to rename all these files - for example replace "Cflexa" part with "Sros"
 
+```bash   
   
   for file in  ./* ; do echo "$file" ; done
   
@@ -246,7 +250,6 @@ pwd
   #to write sed changes directly into the file use -i flag BUT THIS IS DANGEROUS SO ALWAYS TEST IT WITHOUT THE FLAG OR CREATE A BACKUP
   
   for file in ls ./D44* ; do sed -i 's/D44/Other_kinetoplastid/g' $file ; done
-  
   
   
 ```
