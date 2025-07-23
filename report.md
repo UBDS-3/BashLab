@@ -1,27 +1,26 @@
 
 # Biological Data Analysis Report
 
-**Author:** _your name_
-**Date:** _YYYY‑MM‑DD_
 
----
+**Task**: do the analysis and fill the report (replace placeholders in `:`)
+**Author:** :your name:
+**Date:** :YYYY‑MM‑DD:
+
 
 ## 1. General Information
 
-* Organism name: _placeholder_
-* RefSeq assembly ID:
-* FASTA file path: _./path/to/file_
-* ---
+* Organism name: :organism_name:
+* RefSeq assembly ID: :ID:
+* FASTA file path: :file_path:
 
 ## 2. Analysis
 
-* Total CDS records, count: _integer_
-* Total amino acid, count: _integer_
-* Total Gly (G) content, count: _integer_
-* Longest CDS (ID & length): _ID - integer_
-* Shortest CDS (ID & length): _ID - integer_
+* Total CDS records, count: :integer:
+* Total amino acid, count: :integer:
+* Total Gly (G) content, count: :integer:
+* Longest CDS (ID & length): :ID - integer:
+* Shortest CDS (ID & length): :ID - integer:
 
----
 
 ## Summary
 
