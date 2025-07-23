@@ -1,0 +1,475 @@
+---
+title: "Bash 101"
+author: "Created by Nazarii Hrubiian and adapted by Oleksii Stroganov"
+date: "`r Sys.Date()`"
+format:
+  html:
+    code-tools: true
+    self-contained: true
+    theme:
+      light: github
+      dark: darkly
+    toc: true
+    highlight-style: github
+    toc_depth: 2
+    toc_float:
+      collapsed: true
+    code-copy: true
+    toc-expand: true
+    code-link: true
+---
+
+# Main Linux commands
+## **cd**
+(Change Directory) Change the current working directory
+```bash
+cd /path/to/directory   # Go to a specific directory
+cd ~                    # Go to your home directory
+cd ..                   # Up one level
+````
+
+## **ls**
+
+(List Directory) List directory contents
+
+```bash
+ls                       # Basic listing
+ls -l                    # Long format with permissions
+ls -a                    # Include hidden files
+ls -lh                   # Human‑readable sizes
+ls -R                    # Recursive listing
+ls -la                   # Long format + hidden files
+```
+
+## **df**
+
+(Disk Free) Show disk‑space usage
+
+```bash
+df                       # Usage for all filesystems
+df -h                    # Human‑readable (GB, MB)
+df -T                    # Show filesystem type
+df -i                    # Show inode usage
+```
+
+## **mv**
+
+(Move) Move or rename files/directories
+
+```bash
+mv file.txt /new/path/         # Move file
+mv old.txt new.txt             # Rename file
+mv *.txt /new/path/            # Move multiple files
+mv -i file.txt /new/path/      # Ask before overwrite
+```
+
+## **mkdir**
+
+(Make Directory) Create directories
+
+```bash
+mkdir new_dir              # Create one directory
+mkdir -p /path/with/parents   # Create parents as needed
+```
+
+## **rm**
+
+(Remove) Delete files/directories
+
+```bash
+rm file.txt                # Delete file
+rm -r directory            # Recursive delete
+rm -f file.txt             # Force delete without prompt
+rm -i file.txt             # Prompt before each delete
+```
+
+## **cat**
+
+(Concatenate) Output or concatenate files
+
+```bash
+cat file.txt                 # Show file contents
+cat file1 file2              # Concatenate two files
+cat file.txt > copy.txt      # Copy to new file
+```
+
+## **gzip / gunzip**
+
+Compress or decompress `.gz` files
+
+```bash
+gzip file            # Compress file & remove original
+gzip -k file         # Compress but keep original
+gunzip file.gz       # Decompress & remove .gz
+gunzip -k file.gz    # Decompress but keep .gz
+```
+
+## **zcat**
+
+View compressed files without decompressing
+
+```bash
+zcat file.gz            # View one file
+zcat file1.gz file2.gz  # View multiple archives
+```
+
+## **grep**
+
+(Global Regular Expression Print) Search text with patterns
+
+```bash
+grep 'pattern' file.txt              # Basic search
+grep -i 'pattern' file.txt           # Ignore case
+grep -r 'pattern' /path/to/dir       # Recursive search
+grep -v 'pattern' file.txt           # Invert match
+grep --color -w 'example' file.txt   # Highlight whole‑word matches
+```
+
+## **echo**
+
+(Display a Line of Text)
+
+```bash
+echo "Hello, World!"
+echo $HOME
+echo -e "Line 1\nLine 2"
+```
+
+## **ps**
+
+(Process Status) Show running processes
+
+```bash
+ps                         # Current user's processes
+ps aux                     # All system processes
+ps -eF                     # Full‑format list
+ps -p 12345                # Process by PID
+```
+
+## **top**
+
+Realtime process monitor
+
+```bash
+top                      # Start top
+top -u username          # Only processes for user
+```
+
+## **head**
+
+(Output the First Part of Files)
+
+```bash
+head file.txt            # First 10 lines
+head -n 20 file.txt      # First 20 lines
+```
+
+## **tail**
+
+(Output the Last Part of Files)
+
+```bash
+tail file.txt            # Last 10 lines
+tail -n 20 file.txt      # Last 20 lines
+tail -f file.txt         # Follow a growing log
+```
+
+## **wget**
+
+(Download Files from the Web)
+
+```bash
+wget https://example.com/file.zip          # Download file
+wget -c https://example.com/file.zip       # Resume broken download
+wget -r https://example.com/               # Recursive site download
+wget --limit-rate=200k https://example.com/file.zip  # Limit speed
+```
+
+## **more**
+
+Page‑by‑page viewer
+
+```bash
+more file.txt
+cat file.txt | more
+more -num file.txt      # Show num lines per screen
+more +n file.txt        # Start at line n
+command | more          # Page any command's output
+```
+
+## **less**
+
+Enhanced pager (scroll forward/back, search, follow)
+
+```bash
+less file.txt
+less +10 file.txt          # Start at line 10
+ls -l | less
+less +F file.txt           # Follow file (like tail -f)
+# Keys: Space=next page | b=back | /search | n=next match | q=quit
+```
+
+## **|** (Pipe)
+
+Send output of one command as input to another
+
+```bash
+ls | grep 'file'
+ps aux | grep 'process'
+```
+
+## **man**
+
+Online manual pages
+
+```bash
+man ls
+man -k search_term   # Keyword search
+```
+
+## **touch**
+
+Create empty file or update timestamps
+
+```bash
+touch newfile.txt
+touch -a file.txt
+```
+
+## **pwd**
+
+(Print Working Directory)
+
+```bash
+pwd        # Absolute path of current dir
+pwd -P     # Physical path (no symlinks)
+```
+
+## **wc**
+
+(Word Count)
+
+```bash
+wc file.txt            # Lines, words, bytes
+wc -l file.txt         # Lines only
+wc -w file.txt         # Words only
+wc -c file.txt         # Bytes
+wc -L file.txt         # Length of longest line
+wc -l *.txt            # Lines in multiple files
+```
+
+## **whoami**
+
+(Current User) Display effective username
+
+```bash
+whoami
+```
+
+## **which**
+
+(Locate Executable) Show full path of a command
+
+```bash
+which python
+```
+
+## **file**
+
+(File Type) Determine file type
+
+```bash
+file archive.tar.gz
+```
+
+## **sort**
+
+(Sort Lines) Sort text input
+
+```bash
+sort file.txt                 # Default (alphabetical)
+sort -n numbers.txt           # Numeric sort
+sort -r file.txt              # Reverse order
+```
+
+## **sed**
+
+(Stream Editor) Non‑interactive text editing
+
+```bash
+sed 's/old/new/g' file.txt            # Replace text everywhere
+sed -n '1,10p' file.txt               # Print lines 1–10
+sed -i '5d' file.txt                  # Delete line 5 in‑place
+```
+
+# Helpful terminal tips
+
+* Use ↑ / ↓ to browse command history.
+* Press **Ctrl + R** to search history interactively.
+* Use **Tab** for auto‑completion.
+* Press **Ctrl + C** to stop the current command.
+
+# Useful links
+
+* [https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html) – *Bash Reference Manual*
+* [https://linuxguide.rozh2sch.org.ua/](https://linuxguide.rozh2sch.org.ua/) – *Linux basics (Ukrainian)*
+* [https://github.com/naumenko-sa/bioinf\_posibnyk\_public/blob/main/bioinf\_posibnyk.pdf](https://github.com/naumenko-sa/bioinf_posibnyk_public/blob/main/bioinf_posibnyk.pdf) – *Bioinformatics handbook*
+* [https://itedu.center/ua/blog/guides/shell-scripting-for-beginners/](https://itedu.center/ua/blog/guides/shell-scripting-for-beginners/) – *Shell scripting guide*
+* [https://docs.google.com/presentation/d/1YSXYqCSHUZGRVr00oTttv\_v1u83ccPLpF5\_TMtW0iRI/edit#slide=id.g1b53b9035b\_0\_151](https://docs.google.com/presentation/d/1YSXYqCSHUZGRVr00oTttv_v1u83ccPLpF5_TMtW0iRI/edit#slide=id.g1b53b9035b_0_151) – *Applied Computational Genomics, Lecture 2*
+
+# Advanced commands
+
+## **ssh**
+
+(Secure Shell) Secure remote login
+
+```bash
+ssh user@host
+ssh -i key.pem user@host
+```
+
+## **comm**
+
+(Compare Two Sorted Files)
+
+```bash
+comm file1.txt file2.txt        # Three‑column diff
+comm -1 file1.txt file2.txt     # Suppress lines unique to file1
+```
+
+## **kill**
+
+(Terminate Process)
+
+```bash
+kill 12345        # Graceful stop
+kill -9 12345     # Force terminate
+```
+
+## **chmod**
+
+(Change Mode) File permissions
+
+```bash
+chmod 755 file.txt
+chmod u+x script.sh
+chmod -R 644 directory
+chmod a-w file.txt
+```
+
+## **chown**
+
+(Change Owner)
+
+```bash
+chown user:group file.txt
+chown -R user:group directory
+```
+
+## **sudo**
+
+(Run command as another user, typically root)
+
+```bash
+sudo apt-get update
+sudo systemctl restart apache2
+sudo su                # Become root shell
+sudo visudo            # Edit sudoers safely
+```
+
+## **tree**
+
+Display directory tree
+
+```bash
+tree
+tree /path/to/dir
+tree -a      # Include hidden files
+tree -d      # Directories only
+tree -h      # Human‑readable sizes
+```
+
+## **history**
+
+```bash
+history             # Full list
+history 10          # Last 10
+!123                # Re‑run command 123
+!!                  # Repeat last command
+!grep               # Last command containing “grep”
+history -c          # Clear history
+history -w file     # Write history to file
+history -r file     # Read history from file
+```
+
+## **cut**
+
+Select portions of input lines
+
+```bash
+cut -f 1,3 file.txt              # Fields 1 & 3 (tab‑delimited)
+cut -c 1-5 file.txt              # Characters 1‑5
+cut -d ',' -f 2 file.csv         # Field 2 using comma delimiter
+```
+
+## **awk**
+
+Powerful text processing
+
+```bash
+awk '{print}' file.txt
+awk '{print $1}' file.txt
+awk '$2 > 100 {print}' file.txt
+awk -F ',' '{print $1, $3}' file.csv
+```
+
+## **tar**
+
+(Tape Archive) Create/extract archives
+
+```bash
+tar -cvf archive.tar dir/      # Create tar
+tar -czvf archive.tar.gz dir/  # Create gzip‑compressed tar
+tar -xvf archive.tar           # Extract
+tar -tzf archive.tar.gz        # List contents
+```
+
+## **alias**
+
+Define command shortcuts
+
+```bash
+alias ll='ls -lah'     # Persistent: add to ~/.bashrc
+alias gs='git status'
+unalias ll             # Remove alias
+```
+
+## **git**
+
+Distributed version control (very brief)
+
+```bash
+git clone https://github.com/user/repo.git
+git status
+git add file.txt
+git commit -m "Message"
+git push
+```
+
+## **locate**
+
+Fast file search using an indexed database
+
+```bash
+locate '*.pdf'           # Search for PDFs
+sudo updatedb            # Refresh index (may require root)
+```
+
+## **source**
+
+Run a script in the current shell environment
+
+```bash
+source ~/.bashrc     # Reload shell config
+. env/bin/activate   # Alternative shorthand
+```

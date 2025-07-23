@@ -2,7 +2,7 @@
 title: "Intro to Bash"
 author: "Daryna Zavadska"
 date: "`r Sys.Date()`"
-format: 
+format:
  html:
   code-tools: true
   self-contained: true
@@ -18,12 +18,6 @@ format:
   toc-expand: true
   code-link: true
 ---
-
-
-
-
-
-
 
 # Creating directory and moving into it
 # Ctrl+SHIFT+C CTRL+SHIFT+V (at least for windows and Mac)
@@ -44,7 +38,7 @@ cd ./put_your_name_here
 #print the absolute path
 pwd
 
-  
+
 ```
 
 # Basic operations with data - Pichia pastoris aminoacid sequences example
@@ -55,7 +49,7 @@ pwd
 
 ```bash
 
-#download .cds fasta from NCBI ftp 
+#download .cds fasta from NCBI ftp
   wget https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/001/708/105/GCA_001708105.1_ASM170810v1/GCA_001708105.1_ASM170810v1_translated_cds.faa.gz
   #look what's in your directory ; "ls"=list
    ls ./
@@ -63,7 +57,7 @@ pwd
    ls ../
 
   #unzip the archive
-   gunzip ./GCA_001708105.1_ASM170810v1_translated_cds.faa.gz 
+   gunzip ./GCA_001708105.1_ASM170810v1_translated_cds.faa.gz
 
    #create new directory
    mkdir ./training
@@ -72,76 +66,83 @@ pwd
    cd ./training
    ls
    mv ./GCA_001708105.1_ASM170810v1_translated_cds.faa ./yeast.fasta
-   
+
    # task - copy yeast.fasta and give it any other name that you like
    ### WRITE YOUR CODE HERE
-   
+
    #now your copy should be in the directory
-   
+
    #now remove the copy you just made
    rm your_copy_of_yeast.fasta
-   
+
    #check again, the copy is not there anymore
-```  
-   
+```
+
 # Reading/previewing files, writing files, finding patterns in files ("regex"-grep)
-   
-   
+
+
 ```bash
-   head ./yeast.fasta 
-   tail ./yeast.fasta 
+   head ./yeast.fasta
+   tail ./yeast.fasta
    # task - show first 500 lines from the start of the file
    # hint - start with printing head command and executing it without any arguments
-   
-   
+
+
    # the > redirects the output into a file
    head -n 500 ./yeast.fasta > ./small_yeast.fasta
+<<<<<<< HEAD:Bash_intro.qmd
    
    
    cat ./yeast.fasta 
+=======
+
+   # >>
+
+   cat ./yeast.fasta
+>>>>>>> 0faf8368ecbd312b4b893f08f96363f0741438d3:workflow_basic.qmd
    #now hit Ctrl+C to stop the command which is running
-   
-   less ./yeast.fasta 
+
+   less ./yeast.fasta
    #if Ctrl+C doesn't help - print q, quit, exit or something alike
-   
+
    #count the number of CDS in this fasta (i.e. you need to know the number of genes)
    grep ">" ./yeast.fasta
    # task - find the genes with ATY40_BA7500049 in their name
-   
+
    #the | (called "pipe") redirects the output to the command downstream
    grep ">" ./yeast.fasta | wc -l
    # which number did you just get? use wc --help to learn it
-   # what does the number of fasta headers tell you 
-   
+   # what does the number of fasta headers tell you
+
    #See what you wrote in small_yeast.fasta
    #count the number of protein sequences which were written to small_yeast.fasta
    # write all the fasta headers from small_yeast.fasta into the small_names.txt
    #Time to look again what are files in your directory
- 
+
 ```
 
 # Modifying files  - "Find and replace"
 
-```bash 
-   #now lets remove the parts of sequence names following after the first space. 
+```bash
+   #now lets remove the parts of sequence names following after the first space.
    grep ">" ./small_names.txt | sed "s/ .*//g"
    # task - write short names into a separate file cut_names.txt
    # task - now, replace also the "lcl|" prefix and write the result into a separate file in double_cut_names.txt
-   
+
    #lets replace the ">" with ">Yeast_" to know which organisms these sequences are coming from
    grep ">" ./double_cut_names.txt | sed "s/>/>Yeast/g" > FINAL_names.txt
-   
-   
+
+
   #print out file content
   echo FINAL_names.txt
   while read i ; do echo "$i" "is a sequence" ; done < FINAL_names.txt
-  
+
   while read i ; do grep "$i" ./yeast.fasta ; done < FINAL_names.txt
 
   #bonus
   for i in $(echo "gene=USA1" "gene=SEN54" "gene=SEN54") ; do grep "$i" ./yeast.fasta ; done
 
- 
+
 ```
 
 
@@ -149,10 +150,10 @@ pwd
 
 
 
-```bash 
+```bash
 
   # step 1 - find the full names of these sequences in ./yeast.fasta ; use loop for your convenience
-  
+
   #let's manually create the list of IDs that we need in the new file, using nano
   nano
   # copy  ANZ74807 ANZ73996 ANZ73710 and ANZ73481, put each from the new line in the file, like this:
@@ -163,12 +164,13 @@ pwd
   # press Ctrl+X to quit
   # run cat to see the file's content
 
-  #now we want to extract fasta sequences with specific headers from the file. 
+  #now we want to extract fasta sequences with specific headers from the file.
   #for this, we will use seqkit
   seqkit grep -f your_id.txt yeast.fasta
-  
+
   #write output into a file ./your_FINAL_cds.fasta
   #check the content of this file
+<<<<<<< HEAD:Bash_intro.qmd
   
 ```
 
@@ -192,63 +194,78 @@ pwd
 
 ```bash   
     #clone git repository with all the files 
+=======
+
+  #Let's align sequences from here
+  # install mafft
+  sudo apt-get install mafft
+
+  mafft
+  #task -using the help message, find out how to run the multiple sequence alignment, and align those.
+
+
+
+  #Managing multiple files
+
+  #clone git repository with all the files
+>>>>>>> 0faf8368ecbd312b4b893f08f96363f0741438d3:workflow_basic.qmd
   git clone https://github.com/UBDS-3/BashLab.git
-  
+
   #Task - move to the directory data in BashLab and unzip the archive
-  
-  
+
+
   # see how many files we have in unxipped ./many_data directory
   ls | wc -l
-  
+
   #see how many files with "kDNA" string in the name
   ls ./*kDNA* | wc -l
-  
-  #What happens if you run the 
+
+  #What happens if you run the
   ls ./*kDNA* | wc -l
   #instead?
-  
+
   # concatenate all files with  "kDNA" string in the name into a single giant file
   cat ./*kDNA* > all_kDNA.csv
   #count the number of lines in this file
-  
+
   # Now, try to add files with "KINETO"  string in the name into a same giant file
   cat ./*KIN* > all_kDNA.csv
   #count the number of lines in this file
-  
-  #What's wrong here? 
-  
+
+  #What's wrong here?
+
   # The ">" synbol overwrites the file every time. To add the output to the end of the existing file without overwriting it, use ">>" symbol
   #let's try again.
   cat ./*kDNA* > all_kDNA.csv
   cat ./*KIN* >> all_kDNA.csv
-  
+
   #Now, count the number of lines
   #Did it change?
-  
-  
-  
+
+
+
   # Let's say you want to rename all these files - for example replace "Cflexa" part with "Sros"
 
-  
+
   for file in  ./* ; do echo "$file" ; done
-  
-  #What happens if you write 
+
+  #What happens if you write
 
   for file in ./*; do echo "${file//Cflexa/Sros}" ; done
 
   for file in ./*; do mv $file "${file//Cflexa/Sros}" ; done
-  
-  
+
+
   #Let's say you mislabeled something and want to change it in a certain subset of files
 
   for file in ls ./D44* ; do sed 's/D44/Other_kinetoplastid/g' $file ; done
-  
+
   #to write sed changes directly into the file use -i flag BUT THIS IS DANGEROUS SO ALWAYS TEST IT WITHOUT THE FLAG OR CREATE A BACKUP
-  
+
   for file in ls ./D44* ; do sed -i 's/D44/Other_kinetoplastid/g' $file ; done
-  
-  
-  
+
+
+
 ```
 
 
