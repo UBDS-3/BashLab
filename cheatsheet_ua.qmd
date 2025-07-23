@@ -1,0 +1,474 @@
+---
+title: "Bash 101"
+author: "Created by Nazarii Hrubiian and adapted by Oleksii Stroganov"
+date: "`r Sys.Date()`"
+format:
+  html:
+    code-tools: true
+    self-contained: true
+    theme:
+      light: github
+      dark: darkly
+    toc: true
+    highlight-style: github
+    toc_depth: 2
+    toc_float:
+      collapsed: true
+    code-copy: true
+    toc-expand: true
+    code-link: true
+---
+
+# Основні команди Linux
+## **cd**
+(Change Directory) Зміна поточного каталогу
+```bash
+cd /шлях/до/каталогу   # Перехід до конкретного каталогу
+cd ~                   # Перехід до домашнього каталогу
+cd ..                  # На рівень вище
+````
+
+## **ls**
+
+(List Directory) Перелік вмісту каталогу
+
+```bash
+ls                       # Базовий список
+ls -l                    # Детальний список із правами
+ls -a                    # Включно з прихованими файлами
+ls -lh                   # Людино‑читані розміри
+ls -R                    # Рекурсивний список
+ls -la                   # Детальний + приховані
+```
+
+## **df**
+
+(Disk Free) Показ використання дискового простору
+
+```bash
+df                       # Для всіх файлових систем
+df -h                    # У зручному форматі (GB, MB)
+df -T                    # Тип файлової системи
+df -i                    # Використання inode‑ів
+```
+
+## **mv**
+
+(Move) Переміщення або перейменування
+
+```bash
+mv file.txt /new/path/        # Переміщення файлу
+mv old.txt new.txt            # Перейменування
+mv *.txt /new/path/           # Переміщення кількох файлів
+mv -i file.txt /new/path/     # Запит перед перезаписом
+```
+
+## **mkdir**
+
+(Make Directory) Створення каталогів
+
+```bash
+mkdir new_dir              # Один каталог
+mkdir -p /шлях/з/батьками  # З усіма проміжними
+```
+
+## **rm**
+
+(Remove) Видалення файлів/каталогів
+
+```bash
+rm file.txt             # Видалити файл
+rm -r directory         # Рекурсивно
+rm -f file.txt          # Без підтвердження
+rm -i file.txt          # З підтвердженням
+```
+
+## **cat**
+
+(Concatenate) Відображення чи об'єднання файлів
+
+```bash
+cat file.txt                 # Показати вміст
+cat file1 file2              # Об'єднати
+cat file.txt > copy.txt      # Копія у новий файл
+```
+
+## **gzip / gunzip**
+
+Стиснення та розпакування `.gz`
+
+```bash
+gzip file            # Стиснути і видалити оригінал
+gzip -k file         # Стиснути, лишити оригінал
+gunzip file.gz       # Розпакувати і видалити .gz
+gunzip -k file.gz    # Розпакувати, лишити .gz
+```
+
+## **zcat**
+
+Перегляд стиснених файлів
+
+```bash
+zcat file.gz            # Один файл
+zcat file1.gz file2.gz  # Кілька файлів
+```
+
+## **grep**
+
+(Пошук за регулярним виразом)
+
+```bash
+grep 'шаблон' file.txt                 # Звичайний пошук
+grep -i 'шаблон' file.txt              # Без урахування регістру
+grep -r 'шаблон' /шлях/до/каталогу     # Рекурсивно
+grep -v 'шаблон' file.txt              # Рядки без збігів
+grep --color -w 'example' file.txt     # Підсвічування слова
+```
+
+## **echo**
+
+(Виведення рядка)
+
+```bash
+echo "Привіт, світ!"
+echo $HOME
+echo -e "Рядок 1\nРядок 2"
+```
+
+## **ps**
+
+(Process Status) Активні процеси
+
+```bash
+ps                         # Процеси поточного користувача
+ps aux                     # Усі процеси
+ps -eF                     # Повний формат
+ps -p 12345                # За PID
+```
+
+## **top**
+
+Інтерактивний монітор процесів
+
+```bash
+top
+top -u username
+```
+
+## **head**
+
+(Перші рядки файлів)
+
+```bash
+head file.txt
+head -n 20 file.txt
+```
+
+## **tail**
+
+(Останні рядки файлів)
+
+```bash
+tail file.txt
+tail -n 20 file.txt
+tail -f file.txt      # Слідкувати за логом
+```
+
+## **wget**
+
+(Завантаження файлів з Інтернету)
+
+```bash
+wget https://example.com/file.zip            # Завантажити файл
+wget -c https://example.com/file.zip         # Продовжити зупинене
+wget -r https://example.com/                 # Завантажити сайт рекурсивно
+wget --limit-rate=200k https://example.com/file.zip  # Обмежити швидкість
+```
+
+## **more**
+
+Посторінковий перегляд
+
+```bash
+more file.txt
+cat file.txt | more
+more -num file.txt     # Показувати num рядків
+more +n file.txt       # Почати з n‑го рядка
+```
+
+## **less**
+
+Потужніший перегляд
+
+```bash
+less file.txt
+less +10 file.txt
+ls -l | less
+less +F file.txt
+# Клавіші: Space–далі | b–назад | /пошук | n–далі | q–вихід
+```
+
+## **|** (Pipe)
+
+Передача виводу однієї команди іншій
+
+```bash
+ls | grep 'file'
+ps aux | grep 'process'
+```
+
+## **man**
+
+Довідка
+
+```bash
+man ls
+man -k ключове_слово
+```
+
+## **touch**
+
+Створення порожнього файлу або оновлення часу
+
+```bash
+touch newfile.txt
+touch -a file.txt
+```
+
+## **pwd**
+
+(Print Working Directory)
+
+```bash
+pwd
+pwd -P   # Фізичний шлях без symlink‑ів
+```
+
+## **wc**
+
+(Word Count)
+
+```bash
+wc file.txt
+wc -l file.txt
+wc -w file.txt
+wc -c file.txt
+wc -L file.txt
+wc -l *.txt
+```
+
+## **whoami**
+
+Показує ім'я поточного користувача
+
+```bash
+whoami
+```
+
+## **which**
+
+Повний шлях до виконуваного файлу
+
+```bash
+which python
+```
+
+## **file**
+
+Визначає тип файлу
+
+```bash
+file archive.tar.gz
+```
+
+## **sort**
+
+Сортування рядків
+
+```bash
+sort file.txt
+sort -n numbers.txt
+sort -r file.txt
+```
+
+## **sed**
+
+Потоковий редактор
+
+```bash
+sed 's/old/new/g' file.txt
+sed -n '1,10p' file.txt
+sed -i '5d' file.txt
+```
+
+# Корисні поради
+
+* ↑ / ↓  – історія команд
+* **Ctrl + R** – пошук в історії
+* **Tab** – автодоповнення
+* **Ctrl + C** – перервати виконання
+
+# Корисні посилання
+
+* [https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html) – *Bash Reference Manual*
+* [https://linuxguide.rozh2sch.org.ua/](https://linuxguide.rozh2sch.org.ua/) – *Основи Linux*
+* [https://github.com/naumenko-sa/bioinf\_posibnyk\_public/blob/main/bioinf\_posibnyk.pdf](https://github.com/naumenko-sa/bioinf_posibnyk_public/blob/main/bioinf_posibnyk.pdf) – *Підручник з біоінформатики*
+* [https://itedu.center/ua/blog/guides/shell-scripting-for-beginners/](https://itedu.center/ua/blog/guides/shell-scripting-for-beginners/) – *Shell‑скрипти для початківців*
+* [https://docs.google.com/presentation/d/1YSXYqCSHUZGRVr00oTttv\_v1u83ccPLpF5\_TMtW0iRI/edit#slide=id.g1b53b9035b\_0\_151](https://docs.google.com/presentation/d/1YSXYqCSHUZGRVr00oTttv_v1u83ccPLpF5_TMtW0iRI/edit#slide=id.g1b53b9035b_0_151) – *Applied Computational Genomics, Lecture 2*
+
+# Просунуті команди
+
+## **ssh**
+
+(Secure Shell) Віддалене з'єднання
+
+```bash
+ssh user@host
+ssh -i key.pem user@host
+```
+
+## **comm**
+
+(Compare Two Sorted Files)
+
+```bash
+comm file1.txt file2.txt
+comm -1 file1.txt file2.txt
+```
+
+## **kill**
+
+(Завершення процесу)
+
+```bash
+kill 12345
+kill -9 12345
+```
+
+## **chmod**
+
+(Change Mode) Права доступу
+
+```bash
+chmod 755 file.txt
+chmod u+x script.sh
+chmod -R 644 directory
+chmod a-w file.txt
+```
+
+## **chown**
+
+(Change Owner) Зміна власника
+
+```bash
+chown user:group file.txt
+chown -R user:group directory
+```
+
+## **sudo**
+
+(Виконання від імені іншого користувача)
+
+```bash
+sudo apt-get update
+sudo systemctl restart apache2
+sudo su
+sudo visudo
+```
+
+## **tree**
+
+Структура каталогів деревом
+
+```bash
+tree
+tree /шлях/до/каталогу
+tree -a
+tree -d
+tree -h
+```
+
+## **history**
+
+```bash
+history
+history 10
+!123
+!!
+!grep
+history -c
+history -w файл
+history -r файл
+```
+
+## **cut**
+
+Вибір частин рядків
+
+```bash
+cut -f 1,3 file.txt
+cut -c 1-5 file.txt
+cut -d ',' -f 2 file.csv
+```
+
+## **awk**
+
+Потужна обробка тексту
+
+```bash
+awk '{print}' file.txt
+awk '{print $1}' file.txt
+awk '$2 > 100 {print}' file.txt
+awk -F ',' '{print $1, $3}' file.csv
+```
+
+## **tar**
+
+(Архіватор tar)
+
+```bash
+tar -cvf archive.tar dir/
+tar -czvf archive.tar.gz dir/
+tar -xvf archive.tar
+tar -tzf archive.tar.gz
+```
+
+## **alias**
+
+Створення псевдонімів
+
+```bash
+alias ll='ls -lah'
+alias gs='git status'
+unalias ll
+```
+
+## **git**
+
+Система керування версіями
+
+```bash
+git clone https://github.com/user/repo.git
+git status
+git add file.txt
+git commit -m "Повідомлення"
+git push
+```
+
+## **locate**
+
+Швидкий пошук файлів
+
+```bash
+locate '*.pdf'
+sudo updatedb
+```
+
+## **source**
+
+Виконати скрипт у поточній оболонці
+
+```bash
+source ~/.bashrc
+. env/bin/activate
+```
