@@ -97,7 +97,6 @@ pwd
    # the > redirects the output into a file
    head -n 500 ./yeast.fasta > ./small_yeast.fasta
    
-   # >>
    
    cat ./yeast.fasta 
    #now hit Ctrl+C to stop the command which is running
@@ -115,8 +114,8 @@ pwd
    # what does the number of fasta headers tell you 
    
    #See what you wrote in small_yeast.fasta
-   #count the number of CDS which were written to small_yeast.fasta
-   # write all the gene names from small_yeast.fasta into the small_names.txt
+   #count the number of protein sequences which were written to small_yeast.fasta
+   # write all the fasta headers from small_yeast.fasta into the small_names.txt
    #Time to look again what are files in your directory
  
 ```
@@ -140,7 +139,7 @@ pwd
   while read i ; do grep "$i" ./yeast.fasta ; done < FINAL_names.txt
 
   #bonus
-  for i in echo("gene=USA1" "gene=SEN54" "gene=SEN54") ; do grep "$i" ./yeast.fasta ; done
+  for i in $(echo "gene=USA1" "gene=SEN54" "gene=SEN54") ; do grep "$i" ./yeast.fasta ; done
 
  
 ```
@@ -156,7 +155,10 @@ pwd
   
   #let's manually create the list of IDs that we need in the new file, using nano
   nano
-  # copy  ANZ74807 ANZ73996 ANZ73710 and ANZ73481, put each from the new line in the file
+  # copy  ANZ74807 ANZ73996 ANZ73710 and ANZ73481, put each from the new line in the file, like this:
+  
+  
+  
   # press Ctrl+O to write out the file, give it some name
   # press Ctrl+X to quit
   # run cat to see the file's content
@@ -168,18 +170,28 @@ pwd
   #write output into a file ./your_FINAL_cds.fasta
   #check the content of this file
   
+```
+
+# Installing software and running multiple sequence alignment
+
+
+```bash 
   #Let's align sequences from here
-  # install mafft
-  sudo apt-get install mafft
+  # install mafft - DO NOT RUN the command below - it was pre-installed for you
+  # sudo apt-get install mafft
   
   mafft
   #task -using the help message, find out how to run the multiple sequence alignment, and align those.
   
-  
-  
-  #Managing multiple files
-  
-  #clone git repository with all the files 
+```
+
+
+# Managing multiple files
+
+## Sometimes, you need to deal with data recorded in multiple output files with similar prefic in the names - for example, you are making measurements of cells from many microscophotographs  
+
+```bash   
+    #clone git repository with all the files 
   git clone https://github.com/UBDS-3/BashLab.git
   
   #Task - move to the directory data in BashLab and unzip the archive
