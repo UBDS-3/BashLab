@@ -6,6 +6,11 @@ Learn how to use command line to speed up your research for free!
 
 In this practicum you will learn how work with the biological data without
 interface, using only terminal
+
+What are our goals:
+1. Get the data
+2. Get insight of what it is
+3. Transform it in a format we want
 # How-to
 
 1. Open your browser - Chrome/Firefox/Safari/etc.
