@@ -310,11 +310,11 @@ sed -i '5d' file.txt
 
 # Корисні посилання
 
-* [https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html) – *Bash Reference Manual*
-* [https://linuxguide.rozh2sch.org.ua/](https://linuxguide.rozh2sch.org.ua/) – *Основи Linux*
-* [https://github.com/naumenko-sa/bioinf\_posibnyk\_public/blob/main/bioinf\_posibnyk.pdf](https://github.com/naumenko-sa/bioinf_posibnyk_public/blob/main/bioinf_posibnyk.pdf) – *Підручник з біоінформатики*
-* [https://itedu.center/ua/blog/guides/shell-scripting-for-beginners/](https://itedu.center/ua/blog/guides/shell-scripting-for-beginners/) – *Shell‑скрипти для початківців*
-* [https://docs.google.com/presentation/d/1YSXYqCSHUZGRVr00oTttv\_v1u83ccPLpF5\_TMtW0iRI/edit#slide=id.g1b53b9035b\_0\_151](https://docs.google.com/presentation/d/1YSXYqCSHUZGRVr00oTttv_v1u83ccPLpF5_TMtW0iRI/edit#slide=id.g1b53b9035b_0_151) – *Applied Computational Genomics, Lecture 2*
+* [Bash Reference Manual](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html)
+* [Linux basics (Ukrainian)](https://linuxguide.rozh2sch.org.ua/)
+* [Bioinformatics handbook](https://github.com/naumenko-sa/bioinf_posibnyk_public/blob/main/bioinf_posibnyk.pdf)
+* [Shell scripting guide](https://itedu.center/ua/blog/guides/shell-scripting-for-beginners/)
+* [Applied Computational Genomics, Lecture 2](https://docs.google.com/presentation/d/1YSXYqCSHUZGRVr00oTttv_v1u83ccPLpF5_TMtW0iRI/edit#slide=id.g1b53b9035b_0_151)
 
 # Просунуті команди
 
