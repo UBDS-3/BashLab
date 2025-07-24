@@ -132,7 +132,7 @@ pwd
    # task - now, replace also the "lcl|" prefix and write the result into a separate file in double_cut_names.txt
    
    #lets replace the ">" with ">Yeast_" to know which organisms these sequences are coming from
-   grep ">" ./double_cut_names.txt | sed "s/>/>Yeast/g" > FINAL_names.txt
+   grep ">" ./double_cut_names.txt | sed "s/>/>Yeast_/g" > FINAL_names.txt
    
    
   #print out file content
@@ -140,6 +140,8 @@ pwd
   while read i ; do echo "$i" "is a sequence" ; done < FINAL_names.txt
   
   while read i ; do grep "$i" ./yeast.fasta ; done < FINAL_names.txt
+  
+   while read i ; do grep "$i" ./yeast.fasta ; done < FINAL_names.txt
 
   #bonus
   for i in $(echo "gene=USA1" "gene=SEN54" "gene=SEN54") ; do grep "$i" ./yeast.fasta ; done
@@ -257,6 +259,27 @@ pwd
   for file in ls ./D44* ; do sed -i 's/D44/Other_kinetoplastid/g' $file ; done
   
   
+```
+
+# fun task - aligning inparalogs of peroxisomal transporters
+
+```bash   
+
+# find all genes annotated as peroxisomal transpoters by finding the headers that contain "PEX" in the name
+
+# form the list of headers, write it into a separate file 
+
+# remove ">" symbol from then headers file using sed
+
+# using this list of  headers and function from the seqkit form .fasta file with PEX sequences 
+
+# align these sequences using mafft
+
+# how does this alignment differ from the one obtained in the first excersice? Why?
+
+
+
+
 ```
 
 

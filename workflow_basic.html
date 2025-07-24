@@ -286,7 +286,7 @@ pwd
    # task - now, replace also the &quot;lcl|&quot; prefix and write the result into a separate file in double_cut_names.txt
    
    #lets replace the &quot;&gt;&quot; with &quot;&gt;Yeast_&quot; to know which organisms these sequences are coming from
-   grep &quot;&gt;&quot; ./double_cut_names.txt | sed &quot;s/&gt;/&gt;Yeast/g&quot; &gt; FINAL_names.txt
+   grep &quot;&gt;&quot; ./double_cut_names.txt | sed &quot;s/&gt;/&gt;Yeast_/g&quot; &gt; FINAL_names.txt
    
    
   #print out file content
@@ -294,6 +294,8 @@ pwd
   while read i ; do echo &quot;$i&quot; &quot;is a sequence&quot; ; done &lt; FINAL_names.txt
   
   while read i ; do grep &quot;$i&quot; ./yeast.fasta ; done &lt; FINAL_names.txt
+  
+   while read i ; do grep &quot;$i&quot; ./yeast.fasta ; done &lt; FINAL_names.txt
 
   #bonus
   for i in $(echo &quot;gene=USA1&quot; &quot;gene=SEN54&quot; &quot;gene=SEN54&quot;) ; do grep &quot;$i&quot; ./yeast.fasta ; done
@@ -399,6 +401,25 @@ pwd
   for file in ls ./D44* ; do sed -i &#39;s/D44/Other_kinetoplastid/g&#39; $file ; done
   
   </code></pre>
+</div>
+<div id="fun-task---aligning-inparalogs-of-peroxisomal-transporters" class="section level1">
+<h1>fun task - aligning inparalogs of peroxisomal transporters</h1>
+<pre class="bash"><code>
+# find all genes annotated as peroxisomal transpoters by finding the headers that contain &quot;PEX&quot; in the name
+
+# form the list of headers, write it into a separate file 
+
+# remove &quot;&gt;&quot; symbol from then headers file using sed
+
+# using this list of  headers and function from the seqkit form .fasta file with PEX sequences 
+
+# align these sequences using mafft
+
+# how does this alignment differ from the one obtained in the first excersice? Why?
+
+
+
+</code></pre>
 </div>
 
 
