@@ -26,9 +26,10 @@ format:
 
 # !!!IMPORTANT!!!
 
-## USING THE FOLLOWING CAN OFTEN CAUSE PROBLEMS
 ## Ctrl+SHIFT+C CTRL+SHIFT+V (at least for windows and Mac)
 ## Ctrl+C stops currently running command
+
+## USING THE FOLLOWING CAN OFTEN CAUSE PROBLEMS:
 ## Spaces 
 ## Capital/lowercase 
 ## Forward / and reverse dashes \ 
