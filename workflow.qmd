@@ -1,0 +1,276 @@
+---
+title: "Intro to Bash"
+author: "Daryna Zavadska and Oleksii Stroganov"
+date: today
+format:
+  html:
+    toc: true
+    code-fold: false
+    code-tools: true
+    embed-resources: true
+    highlight-style: github
+    code-line-numbers: false
+---
+
+# Important! Read this first!
+
+::: {.callout-warning collapse="false"}
+
+`Bash` is very sensitive to what you type, and this can have **horrible**
+consequences. To avoid it, **always** check for:
+
+* Spaces and tabs
+* UPPERCASE/lowercase
+* Forward `/` and reverse `\` slashes
+* Non-latin characters `г`, `δ`, etc
+* Special symbols, like `*`, `^`, `$`, `#`, etc
+
+### If something has gone BAD
+As you know, life is not perfect, people fail. When you think something is wrong
+use `Ctrl+C` and/or `Ctrl+D` to stop the command execution. Pressing shortcut multiple times can
+speed up cancellation.
+
+**Note:** You may need use `Ctrl+Shift+C`/`Ctrl+Shift+V` to copy/paste code into the terminal.
+
+:::
+
+# Workflow
+
+In this workflow you will learn:
+1. Basics of working with the terminal
+2. Most common linux commands
+3. How to work with biological data within terminal
+
+## Introduction: Creating your own working directory
+```bash
+# start with creating your personal directory
+mkdir ./your_directory_name
+
+# to go to your directory use `cd` - change directory
+cd ./your_directory_name
+
+# to know where are you use `pwd` - print working directory
+pwd
+```
+
+## Getting and Using your data
+
+For this example we use translated coding sequences (CDS) of *Pichia pastoris*
+genome - methylotrophic yeast from [NCBI](https://www.ncbi.nlm.nih.gov/). Usually this information is stored in text files called FASTA, and it contains multiple amino acid or DNA/RNA sequences.
+
+You will learn how to download such files and do basic operations.
+
+### Downloading, unpacking, copying and removing files
+
+```bash
+# lets download the FASTA fasta from NCBI
+wget https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/001/708/105/GCA_001708105.1_ASM170810v1/GCA_001708105.1_ASM170810v1_translated_cds.faa.gz
+
+# to see the files in the directory use `ls` - list [directory]
+ls ./
+
+# the ./ is actually optional, so to speed up writing just ommit it
+ls
+
+# to see what in the parent directory use `../`
+ls ../
+
+#unzip the archive
+gunzip GCA_001708105.1_ASM170810v1_translated_cds.faa.gz
+
+# Lets practice! Do the following commands
+mkdir training
+cp GCA_001708105.1_ASM170810v1_translated_cds.faa training/
+ls
+cd training
+ls
+mv GCA_001708105.1_ASM170810v1_translated_cds.faa yeast.fasta
+
+# TASK #1: copy yeast.fasta and give it any other name that you like
+
+# now your copy should be in the directory
+
+# to remove the copy you just made use `rm` - remove
+rm your_copy_of_yeast.fasta
+
+# now check if the copy has disappeared
+```
+
+### Reading/previewing files, writing files, finding patterns in files ("regex"-grep)
+
+```bash
+head yeast.fasta
+tail yeast.fasta
+# TASK #2: show first and last 100 lines from the start of the file
+
+# to see documentation on head and tail use `man` - manual
+
+man head # type q to exit
+
+cat yeast.fasta # hit Ctrl+C to stop the command
+
+less yeast.fasta # type q to exit
+
+# count the number of CDS in this FASTA (i.e. you need to know the number of genes)
+grep ">" yeast.fasta
+# TASK #3: find the genes with ATY40_BA7500049 in their name
+
+# to redirect the output of the command to another one we use `|` - called pipe
+grep ">" yeast.fasta | wc -l
+# which number did you just get? use wc --help to learn it
+
+# for the rest of the course we will use minimized number of CDS
+# for this we use tool `seqkit`
+
+seqkit head -n 10 yeast.fasta > yeast_small.fasta
+
+# Lets see if the program succeeded
+# TASK #4:
+#   1. count the number of protein sequences which were written to yeast_small.fasta
+#   2. write all the fasta headers from yeast_small.fasta into the names_small
+#   3. look which files you have in your directory.
+```
+
+### Find and replace
+
+```bash
+# lets remove the parts of sequence names following after the first space.
+grep ">" small_names.txt | sed "s/ .*//g"
+# TASK #5: write short names into a separate file cut_names
+# TASK #6: remove "lcl|" prefix and write the result into a separate file in double_cut_names
+
+# lets replace the ">" with ">Yeast_" to know which organisms these sequences are coming from
+grep ">" double_cut_names.txt | sed "s/>/>Yeast_/g" > FINAL_names.txt
+
+# see what is the file content
+echo FINAL_names.txt
+
+while read i ; do echo "$i" "is a sequence" ; done < FINAL_names.txt
+
+while read i ; do grep "$i" ./yeast.fasta ; done < FINAL_names.txt
+while read i ; do grep "$i" ./yeast.fasta ; done < cut_names.txt
+
+# bonus! let's find sequences with genes USA1 SEN54 and SEN54
+for i in $(echo "gene=USA1" "gene=SEN54" "gene=DAL4") ; do grep "$i" ./yeast.fasta ; done
+```
+
+## Multiple Sequence Alignment (MSA)
+
+Next we will select sequences with `ANZ74807` `ANZ73996` `ANZ73710` and `ANZ73481` in their names, and do MSA.
+
+```bash
+# find the full names of these sequences in ./yeast.fasta ; use loop for your convenience
+
+# copy the IDs now to file your_id.txt, name it as you want
+
+# let's manually create the list of IDs that we need in the new file, using nano
+nano
+# copy the output of STEP 1 into nano, put each from the new line in the file, like this:
+
+# press Ctrl+O to write out the file, give it some name
+# press Ctrl+X to quit
+# run cat to see the file's content
+# remove ">" symbol using sed, or manually
+
+# now we want to extract fasta sequences with specific headers from the file.
+# for this, we will use seqkit
+seqkit grep -n -f your_id.txt yeast.fasta > your_FINAL_cds.fasta
+
+# check the content of this file
+```
+
+### Installing software and running MSA
+
+```bash
+# let's align sequences from here
+# install mafft - DO NOT RUN the command below - it was pre-installed for you
+# sudo apt-get install mafft
+
+# see manual for the mafft, to find out how to run the multiple sequence alignment, and align those.
+man mafft
+
+# use mafft to align to_align.fasta
+```
+# Extra
+
+## Merge multiple files
+
+Sometimes, you need to deal with data recorded in multiple output files with similar prefix in the names - for example, you are making measurements of cells from many microscophotographs and for each microphograph, separate table with measurements is generated.
+
+```bash
+# clone git repository with all the files
+git clone https://github.com/UBDS-3/BashLab.git
+
+# TASK #7: move to the directory data in BashLab and unzip the archive
+# Use command unzip for this
+
+# see how many files we have in unzipped ./many_files directory
+ls ./many_files | wc -l
+
+# see how many files with "kDNA" string in the name
+ls ./*kDNA* | wc -l
+
+# What happens if you run the instead?
+ls ./*kdna* | wc -l
+
+# merge all files with "kDNA" string in the name into a single giant file
+cat ./*kDNA* > all_DNA.csv
+# count the number of lines in this file
+
+# now, try to add files with "KINETO" string in the name into a same giant file
+cat ./*KIN* > all_DNA.csv
+# count the number of lines in this file
+
+# what's wrong here?
+
+# the ">" symbol overwrites the file every time. To add the output to the end of the existing file without overwriting it, use ">>" symbol
+
+# let's try again.
+cat ./*kDNA* > all_DNA.csv
+cat ./*KIN* >> all_DNA.csv
+
+# now, count the number of lines, did it changed?
+```
+
+## Rename multiple files
+
+Let's say you want to rename all these files - for example replace `"Cflexa"` part with `"Sros"`
+
+```bash
+  for file in  ./* ; do echo "$file" ; done
+
+  # what happens if you write
+
+  for file in ./*; do echo "${file//Cflexa/Sros}" ; done
+
+  for file in ./*; do mv $file "${file//Cflexa/Sros}" ; done
+
+  # let's say you mislabeled something and want to change it in a certain subset of files
+
+  for file in ls ./D44* ; do sed 's/D44/Other_kinetoplastid/g' $file ; done
+
+  # to write sed changes directly into the file use -i flag BUT THIS IS DANGEROUS SO ALWAYS TEST IT WITHOUT THE FLAG OR CREATE A BACKUP
+
+  for file in ls ./D44* ; do sed -i 's/D44/Other_kinetoplastid/g' $file ; done
+```
+
+## Fun task
+
+The last this we want to do is aligning inparalogs of peroxisomal transporters
+of `Pichia pastoris`.
+
+```bash
+# find all genes annotated as peroxisomal transpoters by finding the headers that contain "PEX" in the name
+
+# form the list of headers, write it into a separate file
+
+# remove ">" symbol from then headers file using sed
+
+# using this list of  headers and function from the seqkit form .fasta file with PEX sequences
+
+# align these sequences using mafft
+
+# how does this alignment differ from the one obtained in the first excersice? Why?
+
+# to visualize MSA, use online tool - https://alignmentviewer.org/
+```

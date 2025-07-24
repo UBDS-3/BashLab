@@ -6,6 +6,9 @@
 **Author:** <your name>
 **Date:** <YYYY‑MM‑DD>
 
+To complete this report you will need `seqkit`, see `man seqkit`
+The ftp: `https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/214/015/GCF_000214015.3_version_140606/GCF_000214015.3_version_140606_protein.faa.gz`
+
 
 ## 1. General Information
 
